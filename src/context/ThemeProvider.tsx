@@ -13,6 +13,8 @@ type Theme = "light" | "dark";
 type ThemeContextType = {
   theme: Theme;
   toggleTheme: () => void;
+  buttonStyles: string;
+  linkStyles: string;
 };
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -42,8 +44,21 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
   };
 
+  // ✅ Global button & link styles based on theme
+  const buttonStyles =
+    theme === "dark"
+      ? "bg-white text-black px-4 py-2 rounded-md transition hover:bg-gray-200"
+      : "bg-black text-white px-4 py-2 rounded-md transition hover:bg-gray-800";
+
+  const linkStyles =
+    theme === "dark"
+      ? "text-black bg-white px-3 py-1 rounded-md transition hover:bg-gray-200"
+      : "text-white bg-black px-3 py-1 rounded-md transition hover:bg-gray-800";
+
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider
+      value={{ theme, toggleTheme, buttonStyles, linkStyles }}
+    >
       {children}
     </ThemeContext.Provider>
   );
