@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { useTheme } from "@/context/ThemeProvider";
 import { TypeAnimation } from "react-type-animation";
 import Link from "next/link";
-import Image from "next/image";
+import TechCircle from "@/components/TechCircle/TechCircle"; // ✅ Replacing logo image with TechCircle
 import {
   FaReact,
   FaNodeJs,
@@ -23,7 +23,7 @@ import {
 // Tech Stack with Colors
 const techStack = [
   { icon: FaReact, name: "React.js", color: "#61DAFB" },
-  { icon: SiNextdotjs, name: "Next.js", color: "#000000" },
+  { icon: SiNextdotjs, name: "Next.js", color: "#023047" },
   { icon: SiTypescript, name: "TypeScript", color: "#3178C6" },
   { icon: SiTailwindcss, name: "Tailwind CSS", color: "#38B2AC" },
   { icon: SiDotnet, name: ".NET Core", color: "#512BD4" },
@@ -56,23 +56,17 @@ const Home = () => {
       className="min-h-screen flex items-center justify-center px-8 lg:px-16 mt-20"
     >
       <div className="container mx-auto flex flex-col lg:flex-row items-center gap-12">
-        {/* Left Section - Logo */}
+        {/* ✅ Left Section - TechCircle instead of Logo Image */}
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
           className="flex-1 flex justify-center"
         >
-          <Image
-            src="/logo.jpg"
-            alt="Shiv Prakash Logo"
-            width={300}
-            height={300}
-            className="drop-shadow-lg"
-          />
+          <TechCircle />
         </motion.div>
 
-        {/* Right Section - Text Content */}
+        {/* ✅ Right Section - Text Content */}
         <motion.div
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
@@ -139,6 +133,7 @@ const Home = () => {
                     color: iconColors[index] === "gray" ? "gray" : color,
                   }}
                   className="transition-all duration-700"
+                  whileHover={{ scale: 1.2, color }}
                 >
                   <Icon />
                 </motion.div>

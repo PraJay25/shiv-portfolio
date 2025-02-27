@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from "react"; // ✅ Explicit import
+import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation"; // ✅ Get current page route
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Menu, X, Sun, Moon } from "lucide-react";
@@ -8,36 +9,23 @@ import { useTheme } from "@/context/ThemeProvider";
 import Logo from "@/components/Logo/Logo";
 
 const navLinks = [
-  { name: "Home", href: "#home" },
-  { name: "About", href: "#about" },
-  { name: "Services", href: "#services" },
-  { name: "Portfolio", href: "#portfolio" },
-  { name: "Blog", href: "#blog" },
-  { name: "Contact", href: "#contact" },
+  { name: "Home", href: "/" },
+  { name: "About", href: "/about" },
+  { name: "Services", href: "/services" },
+  { name: "Portfolio", href: "/portfolio" },
+  { name: "Blog", href: "/blog" },
+  { name: "Contact", href: "/contact" },
 ];
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("home");
   const { theme, toggleTheme } = useTheme();
+  const pathname = usePathname(); // ✅ Get the current route
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
-
-      let currentSection = "home";
-      for (const link of navLinks) {
-        const section = document.querySelector(link.href);
-        if (section) {
-          const offsetTop =
-            section.getBoundingClientRect().top + window.scrollY;
-          if (window.scrollY >= offsetTop - 100) {
-            currentSection = link.name.toLowerCase();
-          }
-        }
-      }
-      setActiveSection(currentSection);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -66,24 +54,28 @@ const Header = () => {
         {/* ✅ Desktop Navigation */}
         <nav className="hidden md:flex space-x-6">
           {navLinks.map((link, index) => (
-            <motion.a
-              key={link.name}
-              href={link.href}
-              className={`transition px-4 py-2 rounded-md ${
-                activeSection === link.name.toLowerCase()
-                  ? theme === "dark"
-                    ? "bg-white text-black"
-                    : "bg-black text-white"
-                  : theme === "dark"
-                  ? "text-white"
-                  : "text-black"
-              } hover:scale-105`}
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0, transition: { delay: index * 0.1 } }}
-              whileHover={{ scale: 1.1 }}
-            >
-              {link.name}
-            </motion.a>
+            <Link key={link.name} href={link.href} passHref>
+              <motion.div
+                className={`transition px-4 py-2 rounded-md ${
+                  pathname === link.href
+                    ? theme === "dark"
+                      ? "bg-white text-black"
+                      : "bg-black text-white"
+                    : theme === "dark"
+                    ? "text-white"
+                    : "text-black"
+                } hover:scale-105`}
+                initial={{ opacity: 0, x: -30 }}
+                animate={{
+                  opacity: 1,
+                  x: 0,
+                  transition: { delay: index * 0.1 },
+                }}
+                whileHover={{ scale: 1.1 }}
+              >
+                {link.name}
+              </motion.div>
+            </Link>
           ))}
         </nav>
 
@@ -117,25 +109,25 @@ const Header = () => {
           transition={{ duration: 0.3 }}
           className={`md:hidden absolute top-full left-0 w-full backdrop-blur-md ${
             theme === "dark"
-              ? "bg-black/90 text-gray-300" // 🔥 Fix dark mode contrast issue
+              ? "bg-black/90 text-gray-300"
               : "bg-white text-black"
           }`}
         >
           {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className={`block px-6 py-3 border-b border-gray-700 ${
-                activeSection === link.name.toLowerCase()
-                  ? theme === "dark"
-                    ? "bg-white text-black"
-                    : "bg-black text-white"
-                  : ""
-              } hover:text-primary`}
-              onClick={() => setIsMenuOpen(false)} // ✅ Fix menu closing on click
-            >
-              {link.name}
-            </a>
+            <Link key={link.name} href={link.href} passHref>
+              <div
+                className={`block px-6 py-3 border-b border-gray-700 ${
+                  pathname === link.href
+                    ? theme === "dark"
+                      ? "bg-white text-black"
+                      : "bg-black text-white"
+                    : ""
+                } hover:text-primary`}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {link.name}
+              </div>
+            </Link>
           ))}
         </motion.div>
       )}
