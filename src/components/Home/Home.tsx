@@ -5,7 +5,8 @@ import { motion } from "framer-motion";
 import { useTheme } from "@/context/ThemeProvider";
 import { TypeAnimation } from "react-type-animation";
 import Link from "next/link";
-import TechCircle from "@/components/TechCircle/TechCircle"; // ✅ Replacing logo image with TechCircle
+import GlobeCanvas from "../GlobeCanvas/GlobeCanvas";
+
 import {
   FaReact,
   FaNodeJs,
@@ -53,28 +54,27 @@ const Home = () => {
   return (
     <section
       id="home"
-      className="min-h-screen flex items-center justify-center px-8 lg:px-16 mt-20"
+      className="min-h-screen flex items-center justify-center px-4 sm:px-8 md:px-12 lg:px-20 mt-20"
     >
-      <div className="container mx-auto flex flex-col lg:flex-row items-center gap-12">
-        {/* ✅ Left Section - TechCircle instead of Logo Image */}
+      <div className="w-full flex flex-col-reverse lg:flex-row items-center justify-between gap-10 xl:gap-20 max-w-7xl">
+        {/* ✅ Globe Section */}
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
-          className="flex-1 flex justify-center"
+          className="w-full flex justify-center items-center lg:w-1/2 max-w-[400px] sm:max-w-[450px] md:max-w-[500px]"
         >
-          <TechCircle />
+          <GlobeCanvas />
         </motion.div>
 
-        {/* ✅ Right Section - Text Content */}
+        {/* ✅ Text Content */}
         <motion.div
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
-          className="flex-1 text-left"
+          className="w-full lg:w-1/2 text-center lg:text-left"
         >
-          {/* Title with Typing Effect */}
-          <h1 className="text-5xl font-extrabold text-gray-800 dark:text-white">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-800 dark:text-white">
             Shiv Prakash
             <br />
             <span className="text-blue-500 dark:text-blue-400">
@@ -94,16 +94,14 @@ const Home = () => {
             </span>
           </h1>
 
-          {/* Short Introduction */}
-          <p className="mt-4 text-lg text-gray-600 dark:text-gray-300 max-w-lg">
+          <p className="mt-4 text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-xl mx-auto lg:mx-0">
             Passionate about crafting high-performance, scalable web
             applications with modern frameworks like React, Next.js, and .NET. I
             specialize in building seamless user experiences with a focus on
             performance and accessibility.
           </p>
 
-          {/* Call-to-Actions */}
-          <div className="mt-6 flex space-x-4">
+          <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
             <Link href="#contact">
               <button className={buttonStyles}>Get in Touch</button>
             </Link>
@@ -112,23 +110,22 @@ const Home = () => {
             </a>
           </div>
 
-          {/* Tech Stack Animation */}
           <motion.div
-            className="mt-12"
+            className="mt-10"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1 }}
           >
-            <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300">
+            <h3 className="text-base sm:text-lg font-semibold text-gray-700 dark:text-gray-300">
               Expert in:
             </h3>
-            <div className="mt-4 flex space-x-6 text-4xl">
+            <div className="mt-4 flex flex-wrap justify-center lg:justify-start gap-5 text-3xl sm:text-4xl">
               {techStack.map(({ icon: Icon, color }, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.3, duration: 0.5 }}
+                  transition={{ delay: index * 0.2, duration: 0.4 }}
                   style={{
                     color: iconColors[index] === "gray" ? "gray" : color,
                   }}
