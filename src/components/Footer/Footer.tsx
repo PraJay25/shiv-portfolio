@@ -21,23 +21,31 @@ const iconVariants = {
 
 const Footer = () => {
   const socialLinks = [
-    { href: "#", icon: <FaFacebook size={22} />, color: "hover:text-blue-500" },
     {
-      href: "#",
+      href: "https://www.linkedin.com/in/shiv-info/", // Facebook placeholder
+      icon: <FaFacebook size={22} />,
+      color: "hover:text-blue-500",
+    },
+    {
+      href: "https://www.linkedin.com/in/shiv-info/", // X placeholder
       icon: <FaXTwitter size={22} />,
       color: "hover:text-gray-600 dark:hover:text-gray-300",
     },
     {
-      href: "#",
+      href: "https://github.com/zoroshiv",
       icon: <FaGithub size={22} />,
       color: "hover:text-gray-800 dark:hover:text-gray-400",
     },
     {
-      href: "mailto:your.email@example.com",
+      href: "mailto:shiv.info97@gmail.com",
       icon: <FaEnvelope size={22} />,
       color: "hover:text-red-500",
     },
-    { href: "#", icon: <FaLinkedin size={22} />, color: "hover:text-blue-700" },
+    {
+      href: "https://www.linkedin.com/in/shiv-info/",
+      icon: <FaLinkedin size={22} />,
+      color: "hover:text-blue-700",
+    },
   ];
 
   return (

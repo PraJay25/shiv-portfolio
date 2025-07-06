@@ -102,7 +102,7 @@ const Home = () => {
           </p>
 
           <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-            <Link href="#contact">
+            <Link href="/contact">
               <button className={buttonStyles}>Get in Touch</button>
             </Link>
             <a href="/Resume.pdf" download className={buttonStyles}>
